@@ -34,8 +34,9 @@ function run(cmd: string, timeout = 10000): { ok: boolean; output: string } {
       stdio: ['pipe', 'pipe', 'pipe'],
     }).trim();
     return { ok: true, output };
-  } catch (e: any) {
-    return { ok: false, output: e?.stderr?.toString?.() || e?.message || '' };
+  } catch (e: unknown) {
+    const err = e as { stderr?: Buffer | string; message?: string };
+    return { ok: false, output: err.stderr?.toString?.() || err.message || '' };
   }
 }
 

@@ -286,10 +286,11 @@ function sortApps(apps: AppDetail[], sortBy: string): AppDetail[] {
     switch (sortBy) {
       case 'name':
         return a.name.localeCompare(b.name);
-      case 'last-used':
+      case 'last-used': {
         const aTime = a.lastUsed?.getTime() ?? 0;
         const bTime = b.lastUsed?.getTime() ?? 0;
         return aTime - bTime; // oldest first
+      }
       case 'size':
       default:
         return (b.size + b.relatedSize) - (a.size + a.relatedSize); // largest first

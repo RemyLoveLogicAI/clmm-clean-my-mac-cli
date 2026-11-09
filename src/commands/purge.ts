@@ -2,6 +2,7 @@ import chalk from 'chalk';
 import checkbox from '@inquirer/checkbox';
 import confirm from '@inquirer/confirm';
 import { readdir } from 'fs/promises';
+import { statSync } from 'fs';
 import { join, basename } from 'path';
 import { homedir } from 'os';
 import { execSync } from 'child_process';
@@ -122,7 +123,7 @@ function getDirSize(dirPath: string): number {
 
 function getDirModTime(dirPath: string): Date | null {
   try {
-    const stats = require('fs').statSync(dirPath);
+    const stats = statSync(dirPath);
     return stats.mtime;
   } catch {
     return null;
@@ -199,7 +200,7 @@ async function scanDockerVolumes(
   try {
     // Find docker-compose files
     const output = execSync(
-      `find "${rootPath}" -maxdepth ${maxDepth} \( -name "docker-compose.yml" -o -name "docker-compose.yaml" -o -name "compose.yml" -o -name "compose.yaml" \) -type f 2>/dev/null`,
+      `find "${rootPath}" -maxdepth ${maxDepth} \\( -name "docker-compose.yml" -o -name "docker-compose.yaml" -o -name "compose.yml" -o -name "compose.yaml" \\) -type f 2>/dev/null`,
       { encoding: 'utf-8', timeout: 15000, stdio: ['pipe', 'pipe', 'pipe'] },
     ).trim();
 

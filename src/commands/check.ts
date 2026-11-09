@@ -241,16 +241,12 @@ function checkMacOSUpdates(): HealthCheck {
 
 function calculateHealthScore(checks: HealthCheck[]): { score: number; message: string } {
   let score = 100;
-  let criticals = 0;
-  let warns = 0;
 
   for (const check of checks) {
     if (check.status === 'critical') {
       score -= 15;
-      criticals++;
     } else if (check.status === 'warn') {
       score -= 5;
-      warns++;
     }
   }
 

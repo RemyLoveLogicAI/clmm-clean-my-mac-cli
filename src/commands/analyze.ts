@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import { readdir, stat } from 'fs/promises';
-import { join, basename } from 'path';
+import { join } from 'path';
 import { homedir } from 'os';
 import { formatSize, exists } from '../utils/index.js';
 import { execSync } from 'child_process';
